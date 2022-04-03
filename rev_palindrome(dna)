@@ -1,0 +1,24 @@
+def rev_palindrome(dna):
+    minval = 3
+    maxval = 11
+    list1 = []
+    # i is index value of dna
+    
+    
+    for i in range(0,len(dna)):
+        capture = ''
+        
+        #
+        for p in range(i,len(dna)):
+            if len(capture) < minval:
+                capture += dna[p]
+                continue
+                
+            capture += dna[p]
+            
+            if len(capture) > maxval:
+                  break
+            
+            if capture == reverse_complement(capture):
+                list1.append((i, len(capture)))
+    return list1
