@@ -1,0 +1,42 @@
+def assemble_genome(dna_list):
+    """
+    :type dna_list: List[str]
+    :rtype: str
+    """
+
+    if len(dna_list)==1:
+        return dna_list[0]
+    dic={}
+    for i in range(len(dna_list)):
+        for j in range(len(dna_list)):
+            if i!=j:
+                d=0
+                for k in range(1,min(len(dna_list[i]),len(dna_list[j]))):
+                    if dna_list[j][:k]==dna_list[i][-k:]:
+                        d=k
+                dic[(i,j)]=d
+    if max(dic.values())==0:
+        return "".join(dna_list)
+    else:
+        ret="".join(dna_list)
+        l=len(ret)
+        stack=[]
+        for i,wd in enumerate(dna_list):
+            tmp=set(range(len(dna_list)))
+            tmp.remove(i)
+            stack.append((wd,i,tmp))
+        while stack:
+            ans,cur,remain=stack.pop()
+            if len(ans)<l:
+                if not remain:
+                    ret=ans
+                    l=len(ret)
+                else:
+                    tmp=[[dic[cur,idx],idx] for idx in remain] # [#overlap,idx]
+                    tmp.sort()
+                    for d,idx in tmp:
+                        nans=ans+dna_list[idx][d:]
+                        nremain=set(remain)
+                        nremain.remove(idx)
+                        stack.append((nans,idx,nremain))
+        return ret
