@@ -1,0 +1,4 @@
+def reverse_complement(dna):
+    original = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A'}
+    return ''.join([original[nucleotide] for nucleotide in dna[::-1]])
+reverse_complement("ATGCAT")
