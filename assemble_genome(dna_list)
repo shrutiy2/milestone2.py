@@ -1,13 +1,13 @@
-def assemble_genome(dna_list):
+def assemble_genome(dna_list): #defines function
     """
-    :type dna_list: List[str]
-    :rtype: str
+    :type dna_list: List[str] 
+    :rtype: str 
     """
 
-    if len(dna_list)==1:
+    if len(dna_list)==1: #defined string up above
         return dna_list[0]
-    dic={}
-    for i in range(len(dna_list)):
+    dic={} #establishes dictionary
+    for i in range(len(dna_list)): #relates the given list to the string code
         for j in range(len(dna_list)):
             if i!=j:
                 d=0
@@ -16,27 +16,27 @@ def assemble_genome(dna_list):
                         d=k
                 dic[(i,j)]=d
     if max(dic.values())==0:
-        return "".join(dna_list)
+        return "".join(dna_list) #prevents error for if equal to zero
     else:
-        ret="".join(dna_list)
-        l=len(ret)
+        string="".join(dna_list) #joins the string that string that is given
+        l=len(string)
         stack=[]
-        for i,wd in enumerate(dna_list):
-            tmp=set(range(len(dna_list)))
-            tmp.remove(i)
-            stack.append((wd,i,tmp))
+        for i,w in enumerate(dna_list): #keeps track of how many iterations have occured
+            t=set(range(len(dna_list)))
+            t.remove(i)
+            stack.append((w,i,t)) #adds dna_list to the string
         while stack:
-            ans,cur,remain=stack.pop()
-            if len(ans)<l:
+            a,c,remain=stack.pop()
+            if len(a)<l:
                 if not remain:
-                    ret=ans
-                    l=len(ret)
+                    string=a
+                    l=len(string)
                 else:
-                    tmp=[[dic[cur,idx],idx] for idx in remain] # [#overlap,idx]
-                    tmp.sort()
-                    for d,idx in tmp:
-                        nans=ans+dna_list[idx][d:]
+                    t=[[dic[c,x],x] for x in remain] #overlaps common points of string
+                    t.sort()
+                    for d,x in t:
+                        na=a+dna_list[x][d:]
                         nremain=set(remain)
-                        nremain.remove(idx)
-                        stack.append((nans,idx,nremain))
-        return ret
+                        nremain.remove(x)
+                        stack.append((na,x,nremain)) #removes excess loops and leaves remaining substring
+        return string
