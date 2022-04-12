@@ -38,5 +38,5 @@ def assemble_genome(dna_list): #defines function
                         na=a+dna_list[x][d:]
                         nremain=set(remain)
                         nremain.remove(x)
-                        stack.append((na,x,nremain)) #removes excess loops and leaves remaining substring
+                        stack.append((na,x,nremain)) #removes excess loops and leaves remaining superstring
         return string
