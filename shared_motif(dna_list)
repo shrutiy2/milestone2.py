@@ -1,8 +1,8 @@
 def shared_motif(dna_list):
     s = '' #define the substring
-    if len(dna_list) > 1 and len(dna_list[0]) > 0: #create nested loop for both variables
-        for x in range(len(dna_list[0])): #looking at each letter
-               for i in range(len(dna_list[0]) - x + 1):
-                if i > len(s) and all(dna_list[0][x:x + i] in y for y in dna_list):
-                       s = dna_list[0][x:x + i] #finds most common substring
+    if len(dna_list) > 1 and len(dna_list[0]) > 0: #create nested loop for both boundaries of string
+        for x in range(len(dna_list[0])): #defines x as list
+               for i in range(len(dna_list[0]) - x + 1): #uses i to slice list
+                if i > len(s) and all(dna_list[0][x:x + i] in y for y in dna_list): 
+                       s = dna_list[0][x:x + i] #finds most common substring for s
     return s #returns result
