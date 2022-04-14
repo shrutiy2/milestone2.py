@@ -4,36 +4,36 @@ def assemble_genome(dna_list): #defines function
     :rtype: str 
     """
 
-    if len(dna_list)==1: #defined string up above
+    if len(dna_list)==1: #return length of list defined above
         return dna_list[0]
     dic={} #establishes dictionary
     for i in range(len(dna_list)): #relates the given list to the string code
-        for j in range(len(dna_list)):
+        for j in range(len(dna_list)): #creating nested loop with the range of the length of the list
             if i!=j:
-                d=0
-                for k in range(1,min(len(dna_list[i]),len(dna_list[j]))):
-                    if dna_list[j][:k]==dna_list[i][-k:]:
-                        d=k
+                d=0 #prevents an error message if i and j are not equal
+                for k in range(1,min(len(dna_list[i]),len(dna_list[j]))): #creates range for k in terms of i and j
+                    if dna_list[j][:k]==dna_list[i][-k:]: 
+                        d=k 
                 dic[(i,j)]=d
     if max(dic.values())==0:
         return "".join(dna_list) #prevents error for if equal to zero
     else:
-        string="".join(dna_list) #joins the string that string that is given
-        l=len(string)
+        string="".join(dna_list) #joins the strings in the list
+        l=len(string) #now defined as length of string
         stack=[]
         for i,w in enumerate(dna_list): #keeps track of how many iterations have occured
-            t=set(range(len(dna_list)))
+            t=set(range(len(dna_list))) #stores dna_list range as one variable
             t.remove(i)
-            stack.append((w,i,t)) #adds dna_list to the string
+            stack.append((w,i,t)) #adds dna_list to the stack list
         while stack:
-            a,c,remain=stack.pop()
+            a,c,remain=stack.pop() #removes last element/remaing element of list
             if len(a)<l:
-                if not remain:
+                if not remain: #parts that aren't removed are put in string
                     string=a
                     l=len(string)
                 else:
                     t=[[dic[c,x],x] for x in remain] #overlaps common points of string
-                    t.sort()
+                    t.sort() #string sorted in specific order
                     for d,x in t:
                         na=a+dna_list[x][d:]
                         nremain=set(remain)
